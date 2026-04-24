@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Számkitaláló Játék</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        button { padding: 15px 30px; font-size: 18px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 5px; }
+        button:hover { background-color: #45a049; }
+        #log { margin-top: 20px; color: #555; }
+    </style>
+</head>
+<body>
+
+<h1>Számkitaláló Játék</h1>
+<p>Gondoltam egy számra 0 és 1 000 000 között. 20 próbálkozásod van eltalálni!</p>
+
+<button onclick="jatekInditasa()">Játék indítása</button>
+
+<div id="log"></div>
+
+<script>
+    function jatekInditasa() {
+        document.getElementById('log').innerHTML = "";
+
+        const celSzam = Math.floor(Math.random() * 1000001);
+        const maxProba = 20;
+        let probalkozasokSzama = 0;
+        let talalt = false;
+
+        while (probalkozasokSzama < maxProba && !talalt) {
+            probalkozasokSzama++;
+
+            let tippNyers = prompt(probalkozasokSzama + ". tipped (0 - 1.000.000):");
+
+            if (tippNyers === null) {
+                alert("A játék megszakítva.");
+                return;
+            }
+
+            let tipp = parseInt(tippNyers);
+
+            if (isNaN(tipp)) {
+                alert("Kérlek, érvényes számot adj meg!");
+                probalkozasokSzama--;
+                continue;
+            }
+
+            if (tipp === celSzam) {
+                alert("Gratulálok, " + probalkozasokSzama + " lépésből eltaláltad!");
+                talalt = true;
+            } else if (tipp > celSzam) {
+                alert(probalkozasokSzama + ". tipp (" + tipp + ") nem talált: A megoldás kisebb.");
+            } else {
+                alert(probalkozasokSzama + ". tipp (" + tipp + ") nem talált: A megoldás nagyobb.");
+            }
+        }
+
+        if (!talalt) {
+            alert("Sajnos ez most nem sikerült! A megoldás: " + celSzam);
+        }
+    }
+</script>
+
+</body>
+</html>
