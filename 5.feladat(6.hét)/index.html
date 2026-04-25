@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Dinamikus Teendő Lista</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        input {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        li:hover {
+            background-color: #f9f9f9;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Teendőim</h2>
+
+    <input type="text" id="taskInput" placeholder="Új teendő...">
+    <button id="addButton">Hozzáadás</button>
+
+    <ul id="taskList">
+    </ul>
+</div>
+
+<script>
+    const input = document.getElementById('taskInput');
+    const button = document.getElementById('addButton');
+    const list = document.getElementById('taskList');
+
+    function addTask() {
+        const taskText = input.value.trim();
+
+        if (taskText !== "") {
+            const li = document.createElement('li');
+            li.textContent = taskText;
+
+            li.addEventListener('click', function() {
+                li.classList.toggle('completed');
+            });
+
+            list.appendChild(li);
+
+            input.value = "";
+            input.focus();
+        } else {
+            alert("Kérlek, írj be valamit!");
+        }
+    }
+
+    button.addEventListener('click', addTask);
+
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            addTask();
+        }
+    });
+</script>
+
+</body>
+</html>
